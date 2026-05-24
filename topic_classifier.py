@@ -141,15 +141,61 @@ def load_taxonomy(path: str) -> TopicTaxonomy:
         return TopicTaxonomy.from_dict(json.load(f))
 
 
-def score_text(text: str, taxonomy: TopicTaxonomy) -> Dict[str, float]:
-    """Score a single text against every topic in the taxonomy."""
-    text_l = text.lower()
-    scores: Dict[str, float] = {}
+def _term_pattern(term: str):
+    """Compile a term/phrase into a word-boundary regex.
+
+    Whitespace inside a phrase matches one-or-more spaces so multi-word seeds
+    like 'food chain' survive OCR spacing. Word boundaries prevent the old
+    substring bug where 'ph' matched 'graph'/'physics' and 'gas' matched
+    'Madagascar'.
+    """
+    parts = [p for p in term.strip().lower().split() if p]
+    if not parts:
+        return None
+    body = r'\s+'.join(re.escape(p) for p in parts)
+    return re.compile(r'\b' + body + r'\b')
+
+
+def _compile_taxonomy(taxonomy: TopicTaxonomy):
+    """Compile every topic's terms to (pattern, weight) pairs once.
+
+    Cached on the taxonomy instance; assumes taxonomy.topics is immutable after
+    first scoring (true for this pipeline). Avoids recompiling regexes for every
+    question in classify_questions / the notebook's per-question loop.
+    """
+    compiled = getattr(taxonomy, '_compiled', None)
+    if compiled is not None:
+        return compiled
+    compiled = {}
     for topic, terms in taxonomy.topics.items():
-        score = 0.0
+        pats = []
         for term, weight in terms.items():
-            if term in text_l:
-                score += weight * text_l.count(term)
+            pat = _term_pattern(term)
+            if pat is not None:
+                pats.append((pat, float(weight)))
+        compiled[topic] = pats
+    try:
+        taxonomy._compiled = compiled
+    except Exception:
+        pass
+    return compiled
+
+
+def score_text(text: str, taxonomy: TopicTaxonomy) -> Dict[str, float]:
+    """Score a single text against every topic in the taxonomy.
+
+    Uses word-boundary matching (not substring containment) so a term only
+    scores when it appears as a whole word/phrase.
+    """
+    text_l = text.lower()
+    compiled = _compile_taxonomy(taxonomy)
+    scores: Dict[str, float] = {}
+    for topic, pats in compiled.items():
+        score = 0.0
+        for pat, weight in pats:
+            n = len(pat.findall(text_l))
+            if n:
+                score += weight * n
         scores[topic] = round(score, 3)
     return scores
 
