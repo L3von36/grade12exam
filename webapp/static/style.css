@@ -1,0 +1,275 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f4f6f8;
+  color: #1a1a1a;
+  min-height: 100vh;
+}
+
+/* ── Navbar ── */
+.navbar {
+  background: #078930;
+  color: white;
+  padding: 0.85rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+.navbar-brand { font-size: 1.1rem; font-weight: bold; text-decoration: none; color: white; }
+.navbar-right { display: flex; align-items: center; gap: 0.75rem; }
+.lang-btn {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.5);
+  color: white;
+  padding: 0.3rem 0.75rem;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: background 0.2s;
+}
+.lang-btn:hover { background: rgba(255,255,255,0.3); }
+.lang-btn.active { background: #FCDD09; color: #1a1a1a; border-color: #FCDD09; font-weight: bold; }
+
+/* ── Page container ── */
+.container { max-width: 960px; margin: 0 auto; padding: 1.5rem 1rem; }
+
+/* ── Hero banner ── */
+.hero {
+  background: linear-gradient(135deg, #078930 0%, #056020 100%);
+  color: white;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.hero h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+.hero p  { font-size: 1.1rem; opacity: 0.9; }
+.hero .stat-pill {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 20px;
+  padding: 0.3rem 0.9rem;
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+}
+
+/* ── Subject grid ── */
+.subject-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+.subject-card {
+  background: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  transition: box-shadow 0.2s, transform 0.15s;
+  display: flex;
+  flex-direction: column;
+}
+.subject-card:hover { box-shadow: 0 6px 18px rgba(0,0,0,0.12); transform: translateY(-2px); }
+.subject-card .icon  { font-size: 2rem; margin-bottom: 0.5rem; }
+.subject-card h2     { color: #078930; font-size: 1.25rem; }
+.subject-card .am    { color: #666; font-size: 0.9rem; margin-bottom: 0.75rem; }
+.subject-card .stats { font-size: 0.85rem; color: #555; margin-bottom: 1rem; flex: 1; }
+.subject-card .coverage {
+  font-size: 0.8rem;
+  color: #078930;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+/* ── Buttons ── */
+.btn {
+  display: inline-block;
+  padding: 0.65rem 1.4rem;
+  border-radius: 6px;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  font-size: 0.95rem;
+  transition: background 0.2s, transform 0.1s;
+}
+.btn:active { transform: scale(0.97); }
+.btn-primary  { background: #078930; color: white; }
+.btn-primary:hover  { background: #056020; }
+.btn-yellow   { background: #FCDD09; color: #1a1a1a; }
+.btn-yellow:hover   { background: #e5c800; }
+.btn-outline  { background: transparent; border: 2px solid #078930; color: #078930; }
+.btn-outline:hover  { background: #078930; color: white; }
+.btn-sm  { padding: 0.4rem 0.9rem; font-size: 0.85rem; }
+.btn-block { display: block; width: 100%; text-align: center; }
+
+/* ── Progress bar ── */
+.progress-wrap { background: #e0e0e0; border-radius: 4px; height: 8px; margin: 0.5rem 0; }
+.progress-fill { height: 8px; border-radius: 4px; background: #FCDD09; transition: width 0.4s; }
+
+/* ── Priority badges ── */
+.badge {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  letter-spacing: 0.03em;
+}
+.badge-HIGH   { background: #e8f5e9; color: #1b5e20; border: 1px solid #66bb6a; }
+.badge-MEDIUM { background: #fffde7; color: #e65100; border: 1px solid #ffa726; }
+.badge-LOW    { background: #f5f5f5; color: #757575; border: 1px solid #bdbdbd; }
+.badge-SKIP   { background: #fce4ec; color: #b71c1c; border: 1px solid #ef9a9a; }
+
+/* ── Focus guide ── */
+.page-header {
+  margin-bottom: 1.5rem;
+}
+.page-header h1 { font-size: 1.6rem; color: #078930; }
+.page-header p  { color: #555; margin-top: 0.25rem; }
+
+.notice {
+  border-left: 4px solid #078930;
+  background: #e8f5e9;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1.25rem;
+  border-radius: 0 6px 6px 0;
+  font-size: 0.92rem;
+}
+.notice-warn { border-left-color: #ffa726; background: #fff8e1; }
+
+.topic-table { width: 100%; border-collapse: collapse; background: white;
+               border-radius: 10px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+.topic-table th {
+  background: #078930; color: white;
+  padding: 0.85rem 1rem; text-align: left; font-size: 0.88rem;
+}
+.topic-table td { padding: 0.85rem 1rem; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
+.topic-table tr:last-child td { border-bottom: none; }
+.topic-table tr:hover td { background: #f9fbe7; }
+.topic-name-en { font-weight: bold; font-size: 0.95rem; }
+.topic-name-am { font-size: 0.82rem; color: #555; }
+
+.score-bar-wrap { display: flex; align-items: center; gap: 0.5rem; }
+.score-bar      { flex: 1; background: #e0e0e0; border-radius: 4px; height: 7px; min-width: 60px; }
+.score-bar-fill { height: 7px; border-radius: 4px; background: #078930; }
+.score-val      { font-size: 0.8rem; color: #555; white-space: nowrap; }
+
+.accuracy-box {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-top: 1.5rem;
+  font-size: 0.88rem;
+  color: #555;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+.accuracy-box strong { color: #078930; }
+
+/* ── Practice session ── */
+.practice-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.practice-header .score-display {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #078930;
+}
+.filter-bar {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+.filter-bar select {
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+  background: white;
+}
+
+.question-card {
+  background: white;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 1rem;
+  display: none;
+}
+.question-card.active { display: block; }
+.question-meta {
+  font-size: 0.8rem;
+  color: #888;
+  margin-bottom: 0.75rem;
+}
+.question-text {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+.options-list { list-style: none; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  padding: 0.85rem 1rem;
+  margin-bottom: 0.6rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  user-select: none;
+}
+.option:hover { border-color: #078930; background: #f1f8e9; }
+.option.selected { border-color: #078930; background: #e8f5e9; }
+.option.correct  { border-color: #43a047; background: #e8f5e9; }
+.option.wrong    { border-color: #e53935; background: #fce4ec; }
+.option-letter {
+  font-weight: bold;
+  color: #078930;
+  min-width: 24px;
+  margin-right: 0.75rem;
+  padding-top: 0.05rem;
+}
+.option-text { line-height: 1.5; }
+
+.feedback {
+  display: none;
+  margin-top: 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+}
+.feedback.correct-fb { background: #e8f5e9; color: #1b5e20; border: 1px solid #66bb6a; }
+.feedback.wrong-fb   { background: #fce4ec; color: #b71c1c; border: 1px solid #ef9a9a; }
+.feedback .chapter   { font-size: 0.85rem; font-weight: normal; color: #555; margin-top: 0.3rem; }
+
+.action-row { margin-top: 1.25rem; display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+/* ── Results ── */
+.results-card {
+  background: white; border-radius: 10px; padding: 2.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center;
+  display: none;
+}
+.results-card .big-score { font-size: 3.5rem; font-weight: bold; color: #078930; }
+.results-card .result-label { color: #555; font-size: 1.1rem; margin-bottom: 1.5rem; }
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .hero h1 { font-size: 1.5rem; }
+  .topic-table th, .topic-table td { padding: 0.65rem 0.6rem; font-size: 0.85rem; }
+  .question-card { padding: 1.25rem; }
+  .navbar-brand { font-size: 0.95rem; }
+}

@@ -1,0 +1,243 @@
+{
+  "questions": [
+    {"id":1,"subject":"biology","year":"2009","topic":"cell_biology","priority":"HIGH",
+     "text":"Which of the following organelles is responsible for ATP production in eukaryotic cells?",
+     "options":{"A":"Ribosome","B":"Mitochondria","C":"Endoplasmic reticulum","D":"Golgi apparatus"},
+     "correct_answer":"B","chapter_ref":"Grade 11, Chapter 1: Cell Structure and Function"},
+
+    {"id":2,"subject":"biology","year":"2008","topic":"cell_biology","priority":"HIGH",
+     "text":"During which phase of mitosis do chromosomes align at the cell's equatorial plate?",
+     "options":{"A":"Prophase","B":"Anaphase","C":"Metaphase","D":"Telophase"},
+     "correct_answer":"C","chapter_ref":"Grade 11, Chapter 2: Cell Division"},
+
+    {"id":3,"subject":"biology","year":"2007","topic":"cell_biology","priority":"HIGH",
+     "text":"Which of the following best describes the function of the cell membrane?",
+     "options":{"A":"Produces energy for the cell","B":"Controls what enters and exits the cell","C":"Stores the cell's genetic material","D":"Manufactures proteins"},
+     "correct_answer":"B","chapter_ref":"Grade 11, Chapter 1: Cell Structure and Function"},
+
+    {"id":4,"subject":"biology","year":"2006","topic":"genetics","priority":"HIGH",
+     "text":"A man with blood type AB marries a woman with blood type O. What are the possible blood types of their children?",
+     "options":{"A":"AB only","B":"A or B only","C":"O only","D":"A, B, AB, or O"},
+     "correct_answer":"B","chapter_ref":"Grade 11, Chapter 5: Genetics"},
+
+    {"id":5,"subject":"biology","year":"2009","topic":"genetics","priority":"HIGH",
+     "text":"Which type of RNA carries amino acids to the ribosome during translation?",
+     "options":{"A":"mRNA","B":"rRNA","C":"tRNA","D":"siRNA"},
+     "correct_answer":"C","chapter_ref":"Grade 12, Chapter 2: Molecular Biology"},
+
+    {"id":6,"subject":"biology","year":"2010","topic":"genetics","priority":"HIGH",
+     "text":"In Mendel's law of segregation, two alleles for a trait separate during:",
+     "options":{"A":"Fertilization","B":"Mitosis","C":"Meiosis","D":"Cell growth"},
+     "correct_answer":"C","chapter_ref":"Grade 11, Chapter 5: Genetics"},
+
+    {"id":7,"subject":"biology","year":"2007","topic":"ecology","priority":"MEDIUM",
+     "text":"Which organisms are the primary producers in a food chain?",
+     "options":{"A":"Herbivores","B":"Carnivores","C":"Decomposers","D":"Green plants"},
+     "correct_answer":"D","chapter_ref":"Grade 11, Chapter 6: Ecology"},
+
+    {"id":8,"subject":"biology","year":"2008","topic":"ecology","priority":"MEDIUM",
+     "text":"The relationship between a clownfish and a sea anemone, where both benefit, is called:",
+     "options":{"A":"Parasitism","B":"Commensalism","C":"Mutualism","D":"Predation"},
+     "correct_answer":"C","chapter_ref":"Grade 11, Chapter 6: Ecology"},
+
+    {"id":9,"subject":"biology","year":"2005","topic":"human_biology","priority":"MEDIUM",
+     "text":"Which organ system is responsible for transporting oxygen to body tissues?",
+     "options":{"A":"Digestive system","B":"Nervous system","C":"Circulatory system","D":"Excretory system"},
+     "correct_answer":"C","chapter_ref":"Grade 11, Chapter 3: Human Physiology"},
+
+    {"id":10,"subject":"biology","year":"2010","topic":"human_biology","priority":"MEDIUM",
+     "text":"Which hormone, produced by the pancreas, lowers blood glucose levels?",
+     "options":{"A":"Glucagon","B":"Adrenaline","C":"Thyroxine","D":"Insulin"},
+     "correct_answer":"D","chapter_ref":"Grade 11, Chapter 4: Human Physiology"},
+
+    {"id":11,"subject":"chemistry","year":"2009","topic":"acid_base","priority":"HIGH",
+     "text":"What is the pH of a pure neutral solution at 25°C?",
+     "options":{"A":"0","B":"7","C":"10","D":"14"},
+     "correct_answer":"B","chapter_ref":"Grade 11, Chapter 6: Acid-Base Equilibrium"},
+
+    {"id":12,"subject":"chemistry","year":"2008","topic":"acid_base","priority":"HIGH",
+     "text":"Which of the following is a strong acid?",
+     "options":{"A":"Acetic acid (CH₃COOH)","B":"Carbonic acid (H₂CO₃)","C":"Sulfuric acid (H₂SO₄)","D":"Citric acid"},
+     "correct_answer":"C","chapter_ref":"Grade 11, Chapter 6: Acid-Base Equilibrium"},
+
+    {"id":13,"subject":"chemistry","year":"2007","topic":"acid_base","priority":"HIGH",
+     "text":"A buffer solution resists changes in:",
+     "options":{"A":"Temperature","B":"Volume","C":"pH","D":"Pressure"},
+     "correct_answer":"C","chapter_ref":"Grade 12, Chapter 3: Chemical Equilibrium"},
+
+    {"id":14,"subject":"chemistry","year":"2010","topic":"stoichiometry","priority":"HIGH",
+     "text":"How many moles of water are produced when 2 moles of H₂ react with 1 mole of O₂?",
+     "options":{"A":"1 mol","B":"2 mol","C":"3 mol","D":"4 mol"},
+     "correct_answer":"B","chapter_ref":"Grade 11, Chapter 1: Stoichiometry"},
+
+    {"id":15,"subject":"chemistry","year":"2006","topic":"stoichiometry","priority":"HIGH",
+     "text":"What is the molar mass of NaCl (Na=23, Cl=35.5)?",
+     "options":{"A":"23 g/mol","B":"35.5 g/mol","C":"58.5 g/mol","D":"67 g/mol"},
+     "correct_answer":"C","chapter_ref":"Grade 11, Chapter 1: Stoichiometry"},
+
+    {"id":16,"subject":"chemistry","year":"2009","topic":"electrochemistry","priority":"MEDIUM",
+     "text":"In an electrochemical cell, oxidation occurs at the:",
+     "options":{"A":"Cathode","B":"Anode","C":"Electrolyte","D":"Salt bridge"},
+     "correct_answer":"B","chapter_ref":"Grade 12, Chapter 5: Electrochemistry"},
+
+    {"id":17,"subject":"chemistry","year":"2008","topic":"organic","priority":"LOW",
+     "text":"Which of the following is an example of an alkane?",
+     "options":{"A":"Ethylene (C₂H₄)","B":"Methane (CH₄)","C":"Acetylene (C₂H₂)","D":"Benzene (C₆H₆)"},
+     "correct_answer":"B","chapter_ref":"Grade 11, Chapter 8: Organic Chemistry"},
+
+    {"id":18,"subject":"physics","year":"2009","topic":"mechanics","priority":"HIGH",
+     "text":"A ball thrown vertically upward reaches its highest point. At that point, its velocity is:",
+     "options":{"A":"Maximum","B":"Zero","C":"Equal to initial speed","D":"Directed downward"},
+     "correct_answer":"B","chapter_ref":"Grade 11, Chapter 2: Kinematics"},
+
+    {"id":19,"subject":"physics","year":"2008","topic":"mechanics","priority":"HIGH",
+     "text":"Newton's second law states that the net force on an object equals:",
+     "options":{"A":"mass × velocity","B":"mass × acceleration","C":"mass × distance","D":"mass / time"},
+     "correct_answer":"B","chapter_ref":"Grade 11, Chapter 3: Newton's Laws"},
+
+    {"id":20,"subject":"physics","year":"2007","topic":"mechanics","priority":"HIGH",
+     "text":"Which of the following is a scalar quantity?",
+     "options":{"A":"Velocity","B":"Force","C":"Speed","D":"Acceleration"},
+     "correct_answer":"C","chapter_ref":"Grade 11, Chapter 1: Physical Quantities"},
+
+    {"id":21,"subject":"physics","year":"2010","topic":"electricity_magnetism","priority":"MEDIUM",
+     "text":"If the resistance in a circuit doubles while the current stays constant, the voltage:",
+     "options":{"A":"Halves","B":"Stays the same","C":"Doubles","D":"Quadruples"},
+     "correct_answer":"C","chapter_ref":"Grade 11, Chapter 4: Electricity"},
+
+    {"id":22,"subject":"physics","year":"2009","topic":"electricity_magnetism","priority":"MEDIUM",
+     "text":"Which of the following materials is a good electrical conductor?",
+     "options":{"A":"Wood","B":"Glass","C":"Copper","D":"Rubber"},
+     "correct_answer":"C","chapter_ref":"Grade 11, Chapter 4: Electricity"},
+
+    {"id":23,"subject":"physics","year":"2008","topic":"waves_optics","priority":"MEDIUM",
+     "text":"The speed of light in a vacuum is approximately:",
+     "options":{"A":"3 × 10⁶ m/s","B":"3 × 10⁸ m/s","C":"3 × 10¹⁰ m/s","D":"3 × 10⁴ m/s"},
+     "correct_answer":"B","chapter_ref":"Grade 11, Chapter 6: Light and Optics"},
+
+    {"id":24,"subject":"physics","year":"2007","topic":"thermodynamics","priority":"MEDIUM",
+     "text":"The first law of thermodynamics states that:",
+     "options":{"A":"Entropy always increases","B":"Heat flows from cold to hot","C":"Energy cannot be created or destroyed","D":"Temperature is always proportional to pressure"},
+     "correct_answer":"C","chapter_ref":"Grade 11, Chapter 7: Thermodynamics"},
+
+    {"id":25,"subject":"mathematics","year":"2010","topic":"algebra","priority":"HIGH",
+     "text":"Solve for x: 2x + 6 = 14",
+     "options":{"A":"3","B":"4","C":"5","D":"6"},
+     "correct_answer":"B","chapter_ref":"Grade 11, Chapter 1: Equations and Inequalities"},
+
+    {"id":26,"subject":"mathematics","year":"2009","topic":"algebra","priority":"HIGH",
+     "text":"If f(x) = 3x² – 2x + 1, what is f(2)?",
+     "options":{"A":"7","B":"9","C":"12","D":"15"},
+     "correct_answer":"B","chapter_ref":"Grade 11, Chapter 2: Functions"},
+
+    {"id":27,"subject":"mathematics","year":"2008","topic":"algebra","priority":"HIGH",
+     "text":"Which of the following is a factor of x² – 9?",
+     "options":{"A":"(x – 3)(x – 3)","B":"(x + 9)(x – 1)","C":"(x – 3)(x + 3)","D":"(x + 3)(x + 3)"},
+     "correct_answer":"C","chapter_ref":"Grade 11, Chapter 1: Factorization"},
+
+    {"id":28,"subject":"mathematics","year":"2010","topic":"geometry","priority":"HIGH",
+     "text":"The sum of the interior angles of a triangle is:",
+     "options":{"A":"90°","B":"180°","C":"270°","D":"360°"},
+     "correct_answer":"B","chapter_ref":"Grade 11, Chapter 4: Plane Geometry"},
+
+    {"id":29,"subject":"mathematics","year":"2009","topic":"geometry","priority":"HIGH",
+     "text":"The area of a circle with radius r is:",
+     "options":{"A":"2πr","B":"πr²","C":"2πr²","D":"πr"},
+     "correct_answer":"B","chapter_ref":"Grade 11, Chapter 4: Circles"},
+
+    {"id":30,"subject":"mathematics","year":"2008","topic":"calculus","priority":"MEDIUM",
+     "text":"What is the derivative of f(x) = x³?",
+     "options":{"A":"x²","B":"3x","C":"3x²","D":"x⁴/4"},
+     "correct_answer":"C","chapter_ref":"Grade 12, Chapter 4: Differential Calculus"},
+
+    {"id":31,"subject":"mathematics","year":"2007","topic":"calculus","priority":"MEDIUM",
+     "text":"Evaluate the indefinite integral ∫ 2x dx",
+     "options":{"A":"2","B":"x²","C":"x² + C","D":"2x² + C"},
+     "correct_answer":"C","chapter_ref":"Grade 12, Chapter 5: Integral Calculus"},
+
+    {"id":32,"subject":"mathematics","year":"2010","topic":"statistics_probability","priority":"LOW",
+     "text":"The mean of the data set {4, 7, 9, 11, 14} is:",
+     "options":{"A":"7","B":"8","C":"9","D":"11"},
+     "correct_answer":"C","chapter_ref":"Grade 11, Chapter 8: Statistics"},
+
+    {"id":33,"subject":"mathematics","year":"2009","topic":"statistics_probability","priority":"LOW",
+     "text":"If a fair coin is tossed twice, the probability of getting two heads is:",
+     "options":{"A":"1/2","B":"1/3","C":"1/4","D":"1/8"},
+     "correct_answer":"C","chapter_ref":"Grade 11, Chapter 8: Probability"},
+
+    {"id":34,"subject":"english","year":"2010","topic":"vocabulary","priority":"HIGH",
+     "text":"Choose the word most similar in meaning to 'diligent':",
+     "options":{"A":"Lazy","B":"Hardworking","C":"Careless","D":"Distracted"},
+     "correct_answer":"B","chapter_ref":"Grade 11–12, Vocabulary Units"},
+
+    {"id":35,"subject":"english","year":"2009","topic":"vocabulary","priority":"HIGH",
+     "text":"The antonym of 'benevolent' is:",
+     "options":{"A":"Generous","B":"Kind","C":"Malevolent","D":"Charitable"},
+     "correct_answer":"C","chapter_ref":"Grade 12, Vocabulary Units"},
+
+    {"id":36,"subject":"english","year":"2008","topic":"vocabulary","priority":"HIGH",
+     "text":"Choose the word closest in meaning to 'obsolete':",
+     "options":{"A":"Modern","B":"Outdated","C":"Popular","D":"Valuable"},
+     "correct_answer":"B","chapter_ref":"Grade 12, Vocabulary Units"},
+
+    {"id":37,"subject":"english","year":"2010","topic":"reading","priority":"HIGH",
+     "text":"When identifying the main idea of a passage, a student should focus on:",
+     "options":{"A":"The first and last sentences only","B":"Supporting details and examples","C":"The central point the author is making throughout","D":"The vocabulary words the author uses"},
+     "correct_answer":"C","chapter_ref":"Grade 11, Reading Comprehension"},
+
+    {"id":38,"subject":"english","year":"2009","topic":"reading","priority":"HIGH",
+     "text":"An inference is best described as:",
+     "options":{"A":"A fact directly stated in the text","B":"A conclusion drawn from clues in the text","C":"An opinion of the reader","D":"The author's biography"},
+     "correct_answer":"B","chapter_ref":"Grade 12, Reading Comprehension"},
+
+    {"id":39,"subject":"english","year":"2010","topic":"grammar","priority":"HIGH",
+     "text":"Choose the correct verb form: 'She ___ to school every day.'",
+     "options":{"A":"go","B":"goes","C":"going","D":"gone"},
+     "correct_answer":"B","chapter_ref":"Grade 11, Grammar Unit 2: Verb Tenses"},
+
+    {"id":40,"subject":"english","year":"2009","topic":"grammar","priority":"HIGH",
+     "text":"Which sentence uses the passive voice correctly?",
+     "options":{"A":"The teacher taught the students","B":"The students were taught by the teacher","C":"Teaching the students by the teacher","D":"The teacher was taught by the students"},
+     "correct_answer":"B","chapter_ref":"Grade 12, Grammar Unit 4: Voice"},
+
+    {"id":41,"subject":"english","year":"2008","topic":"grammar","priority":"HIGH",
+     "text":"Choose the correct sentence:",
+     "options":{"A":"Neither of the boys are ready","B":"Neither of the boys is ready","C":"Neither of the boys were ready","D":"Neither of the boys have been ready"},
+     "correct_answer":"B","chapter_ref":"Grade 11, Grammar Unit 3: Subject-Verb Agreement"},
+
+    {"id":42,"subject":"civics","year":"2010","topic":"constitution_governance","priority":"HIGH",
+     "text":"According to the Ethiopian Constitution, the supreme law of the country is:",
+     "options":{"A":"Parliamentary decisions","B":"The Constitution itself","C":"Prime Minister's directives","D":"Council of Ministers resolutions"},
+     "correct_answer":"B","chapter_ref":"Grade 11, Chapter 1: The Ethiopian Constitution"},
+
+    {"id":43,"subject":"civics","year":"2009","topic":"constitution_governance","priority":"HIGH",
+     "text":"Which body has the constitutional power to interpret the Ethiopian Constitution?",
+     "options":{"A":"The Federal Supreme Court","B":"The House of Federation","C":"The Prime Minister's office","D":"The Electoral Board"},
+     "correct_answer":"B","chapter_ref":"Grade 12, Chapter 2: Federal Government Structure"},
+
+    {"id":44,"subject":"civics","year":"2008","topic":"constitution_governance","priority":"HIGH",
+     "text":"The Ethiopian federal system is based on:",
+     "options":{"A":"Religious divisions","B":"Ethnic and linguistic lines","C":"Economic regions only","D":"Colonial boundaries"},
+     "correct_answer":"B","chapter_ref":"Grade 11, Chapter 3: Federalism"},
+
+    {"id":45,"subject":"civics","year":"2010","topic":"rights_duties","priority":"HIGH",
+     "text":"Which of the following is a fundamental right guaranteed by the Ethiopian Constitution?",
+     "options":{"A":"The right to unlimited property","B":"The right to education","C":"The right to bear arms","D":"The right to avoid taxation"},
+     "correct_answer":"B","chapter_ref":"Grade 11, Chapter 4: Fundamental Rights"},
+
+    {"id":46,"subject":"civics","year":"2009","topic":"rights_duties","priority":"HIGH",
+     "text":"A civic duty is best defined as:",
+     "options":{"A":"An optional action for citizens","B":"A right given by the government","C":"A responsibility expected of every citizen","D":"A privilege earned through service"},
+     "correct_answer":"C","chapter_ref":"Grade 12, Chapter 5: Civic Duties"},
+
+    {"id":47,"subject":"civics","year":"2008","topic":"economy_society","priority":"MEDIUM",
+     "text":"Which of the following best describes absolute poverty?",
+     "options":{"A":"Having less than your neighbor","B":"Unable to meet basic survival needs","C":"Living in a rural area","D":"Being unemployed"},
+     "correct_answer":"B","chapter_ref":"Grade 12, Chapter 7: Development and Society"},
+
+    {"id":48,"subject":"civics","year":"2007","topic":"economy_society","priority":"MEDIUM",
+     "text":"Sustainable development is development that:",
+     "options":{"A":"Prioritizes economic growth above all","B":"Meets current needs without compromising future generations","C":"Focuses only on industrial production","D":"Ignores environmental concerns"},
+     "correct_answer":"B","chapter_ref":"Grade 12, Chapter 8: Sustainable Development"}
+  ]
+}

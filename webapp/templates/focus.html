@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %}{{ subject_label }} — {{ texts.focus_guide }}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div style="margin:1rem 0;">
+    <a href="/?lang={{ lang }}" class="btn btn-outline btn-sm">← {{ texts.back_home }}</a>
+  </div>
+
+  <div class="page-header">
+    <h1>{{ subject_icon }} {{ subject_label }} — {{ texts.focus_guide }}</h1>
+    <p>{{ texts.exam_year }} {{ target_year }} E.C. · {{ texts.model_accuracy }}: {{ "%.0f"|format(hit_rate * 100) }}% hit rate</p>
+  </div>
+
+  <div class="notice">
+    {{ texts.high_notice }}
+  </div>
+
+  {% set high_topics = topics | selectattr('priority', 'equalto', 'HIGH') | list %}
+  {% set skip_topics = topics | selectattr('priority', 'in', ['LOW', 'SKIP']) | list %}
+
+  <div style="margin-bottom:1.5rem;display:flex;gap:1rem;flex-wrap:wrap;align-items:center;">
+    <div style="font-size:1rem;color:#1b5e20;font-weight:bold;">
+      ✅ Study {{ high_topics|length }} HIGH topics → cover ~{{ high_pct }}% of the exam
+    </div>
+    <a href="/practice/{{ subject }}?lang={{ lang }}" class="btn btn-yellow">{{ texts.start_practice }} →</a>
+  </div>
+
+  <table class="topic-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>{{ texts.topic }}</th>
+        <th>{{ texts.chapters }}</th>
+        <th>{{ texts.frequency }}</th>
+        <th>{{ texts.likelihood }}</th>
+        <th>{{ texts.action }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tp in topics %}
+      <tr>
+        <td style="color:#888;font-size:0.85rem;">{{ loop.index }}</td>
+        <td>
+          <div class="topic-name-en">
+            <span class="badge badge-{{ tp.priority }}">
+              {% if tp.priority == 'HIGH' %}{{ texts.priority_high }}
+              {% elif tp.priority == 'MEDIUM' %}{{ texts.priority_medium }}
+              {% elif tp.priority == 'LOW' %}{{ texts.priority_low }}
+              {% else %}{{ texts.skip }}
+              {% endif %}
+            </span>
+            {{ tp.label }}
+          </div>
+        </td>
+        <td style="font-size:0.82rem;color:#555;">{{ tp.chapters }}</td>
+        <td style="font-size:0.85rem;">
+          {{ tp.frequency_count }}/6 {{ texts.past_questions }}
+        </td>
+        <td>
+          <div class="score-bar-wrap">
+            <div class="score-bar">
+              <div class="score-bar-fill" style="width:{{ (tp.likely_score * 100)|int }}%"></div>
+            </div>
+            <span class="score-val">{{ "%.0f"|format(tp.likely_score * 100) }}%</span>
+          </div>
+        </td>
+        <td>
+          {% if tp.priority in ['HIGH', 'MEDIUM'] %}
+            <a href="/practice/{{ subject }}?topic={{ tp.topic }}&lang={{ lang }}" class="btn btn-primary btn-sm">
+              {{ texts.study_this }}
+            </a>
+          {% else %}
+            <span style="color:#aaa;font-size:0.85rem;">{{ texts.skip_this }}</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% if skip_topics %}
+  <div class="notice notice-warn" style="margin-top:1.5rem;">
+    ⚠️ {{ texts.skip_notice }}
+    {% for tp in skip_topics %}
+      <strong>{{ tp.label }}</strong>{% if not loop.last %}, {% endif %}
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="accuracy-box">
+    <strong>Model accuracy ({{ subject_label }}):</strong>
+    Hit rate <strong>{{ "%.0f"|format(hit_rate * 100) }}%</strong> ·
+    Rank correlation <strong>{{ "%.2f"|format(rank_corr) }}</strong>
+    (Leave-one-year-out backtest over 6 years of exams)
+  </div>
+</div>
+{% endblock %}
