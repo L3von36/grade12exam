@@ -1,0 +1,64 @@
+{
+  "generated": "2026-05-24",
+  "target_year": 2011,
+  "subjects": {
+    "biology": {
+      "backtest_hit_rate": 1.0,
+      "backtest_rank_correlation": 0.75,
+      "topics": [
+        {"topic": "cell_biology",  "likely_score": 0.6267, "confidence": 0.7, "frequency_count": 6, "priority": "HIGH",   "trend": "stable"},
+        {"topic": "genetics",      "likely_score": 0.5059, "confidence": 0.7, "frequency_count": 6, "priority": "HIGH",   "trend": "stable"},
+        {"topic": "ecology",       "likely_score": 0.3781, "confidence": 0.9, "frequency_count": 6, "priority": "MEDIUM", "trend": "increasing"},
+        {"topic": "human_biology", "likely_score": 0.3647, "confidence": 0.7, "frequency_count": 6, "priority": "MEDIUM", "trend": "stable"}
+      ]
+    },
+    "chemistry": {
+      "backtest_hit_rate": 1.0,
+      "backtest_rank_correlation": 0.917,
+      "topics": [
+        {"topic": "acid_base",        "likely_score": 0.6449, "confidence": 0.6, "frequency_count": 6, "priority": "HIGH",   "trend": "stable"},
+        {"topic": "stoichiometry",    "likely_score": 0.5242, "confidence": 0.7, "frequency_count": 6, "priority": "HIGH",   "trend": "stable"},
+        {"topic": "electrochemistry", "likely_score": 0.2840, "confidence": 0.7, "frequency_count": 6, "priority": "MEDIUM", "trend": "increasing"},
+        {"topic": "organic",          "likely_score": 0.2019, "confidence": 0.7, "frequency_count": 6, "priority": "LOW",    "trend": "stable"}
+      ]
+    },
+    "civics": {
+      "backtest_hit_rate": 1.0,
+      "backtest_rank_correlation": 0.833,
+      "topics": [
+        {"topic": "constitution_governance", "likely_score": 0.8000, "confidence": 0.9, "frequency_count": 6, "priority": "HIGH",   "trend": "stable"},
+        {"topic": "rights_duties",           "likely_score": 0.5012, "confidence": 0.9, "frequency_count": 6, "priority": "HIGH",   "trend": "increasing"},
+        {"topic": "economy_society",         "likely_score": 0.2471, "confidence": 0.9, "frequency_count": 6, "priority": "MEDIUM", "trend": "increasing"}
+      ]
+    },
+    "english": {
+      "backtest_hit_rate": 1.0,
+      "backtest_rank_correlation": 0.5,
+      "topics": [
+        {"topic": "vocabulary", "likely_score": 0.8168, "confidence": 0.7, "frequency_count": 6, "priority": "HIGH", "trend": "increasing"},
+        {"topic": "reading",    "likely_score": 0.7710, "confidence": 0.9, "frequency_count": 6, "priority": "HIGH", "trend": "stable"},
+        {"topic": "grammar",    "likely_score": 0.5000, "confidence": 0.7, "frequency_count": 6, "priority": "HIGH", "trend": "stable"}
+      ]
+    },
+    "mathematics": {
+      "backtest_hit_rate": 1.0,
+      "backtest_rank_correlation": 0.75,
+      "topics": [
+        {"topic": "algebra",               "likely_score": 0.7565, "confidence": 0.7, "frequency_count": 6, "priority": "HIGH",   "trend": "increasing"},
+        {"topic": "geometry",              "likely_score": 0.7411, "confidence": 0.7, "frequency_count": 6, "priority": "HIGH",   "trend": "increasing"},
+        {"topic": "calculus",              "likely_score": 0.3852, "confidence": 0.7, "frequency_count": 6, "priority": "MEDIUM", "trend": "stable"},
+        {"topic": "statistics_probability","likely_score": 0.2036, "confidence": 0.6, "frequency_count": 6, "priority": "LOW",    "trend": "stable"}
+      ]
+    },
+    "physics": {
+      "backtest_hit_rate": 1.0,
+      "backtest_rank_correlation": 0.75,
+      "topics": [
+        {"topic": "mechanics",            "likely_score": 0.8600, "confidence": 0.9, "frequency_count": 6, "priority": "HIGH",   "trend": "increasing"},
+        {"topic": "electricity_magnetism","likely_score": 0.4180, "confidence": 0.7, "frequency_count": 6, "priority": "MEDIUM", "trend": "stable"},
+        {"topic": "thermodynamics",       "likely_score": 0.4000, "confidence": 0.7, "frequency_count": 6, "priority": "MEDIUM", "trend": "increasing"},
+        {"topic": "waves_optics",         "likely_score": 0.3397, "confidence": 0.9, "frequency_count": 6, "priority": "MEDIUM", "trend": "stable"}
+      ]
+    }
+  }
+}

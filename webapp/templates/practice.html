@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% block title %}{{ subject_label }} {{ texts.practice }}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div style="margin:1rem 0;display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;">
+    <a href="/subject/{{ subject }}?lang={{ lang }}" class="btn btn-outline btn-sm">← {{ texts.focus_guide }}</a>
+    <h2 style="font-size:1.2rem;color:#078930;">{{ subject_icon }} {{ subject_label }} — {{ texts.practice }}</h2>
+  </div>
+
+  <!-- Filter bar -->
+  <div class="filter-bar">
+    <select id="topicFilter" onchange="filterTopic(this.value)">
+      <option value="all" {% if selected_topic == 'all' %}selected{% endif %}>{{ texts.all_topics }}</option>
+      {% for tp in topic_options %}
+      <option value="{{ tp.key }}" {% if selected_topic == tp.key %}selected{% endif %}>{{ tp.label }}</option>
+      {% endfor %}
+    </select>
+    <span style="font-size:0.88rem;color:#666;align-self:center;">{{ total }} questions</span>
+  </div>
+
+  <!-- Progress -->
+  <div class="practice-header">
+    <div id="progressText" style="font-size:0.9rem;color:#555;">
+      {{ texts.question_label }} <span id="qNum">1</span> {{ texts.of_label }} <span id="qTotal">{{ total }}</span>
+    </div>
+    <div class="score-display">
+      Score: <span id="scoreNum">0</span> / <span id="scoreOf">0</span>
+    </div>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-fill" id="progressBar" style="width:0%"></div>
+  </div>
+
+  <!-- Questions -->
+  {% for q in questions %}
+  <div class="question-card {% if loop.first %}active{% endif %}" id="qcard-{{ loop.index0 }}" data-idx="{{ loop.index0 }}">
+    <div class="question-meta">
+      <span class="badge badge-{{ q.priority }}">{{ q.priority }}</span>
+      {{ q.topic | replace('_', ' ') | title }}
+      · {{ q.year }} E.C.
+    </div>
+    <div class="question-text">{{ q.text }}</div>
+    <ul class="options-list" id="opts-{{ loop.index0 }}">
+      {% for letter, text in q.options.items() %}
+      <li class="option"
+          data-letter="{{ letter }}"
+          data-qidx="{{ loop.index0 }}"
+          onclick="selectOption(this, {{ q.id }}, {{ loop.index0 }})">
+        <span class="option-letter">{{ letter }}</span>
+        <span class="option-text">{{ text }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+    <div class="feedback" id="fb-{{ loop.index0 }}">
+      <span id="fb-text-{{ loop.index0 }}"></span>
+      <div class="chapter" id="fb-chapter-{{ loop.index0 }}"></div>
+    </div>
+    <div class="action-row">
+      <button class="btn btn-primary" id="submit-{{ loop.index0 }}"
+              onclick="submitAnswer({{ loop.index0 }}, {{ q.id }})" disabled>
+        {{ texts.submit_answer }}
+      </button>
+      <button class="btn btn-yellow" id="next-{{ loop.index0 }}"
+              style="display:none"
+              onclick="nextQuestion({{ loop.index0 }}, {{ total }})">
+        {% if loop.last %}{{ texts.finish }}{% else %}{{ texts.next_question }} →{% endif %}
+      </button>
+    </div>
+  </div>
+  {% endfor %}
+
+  <!-- Results -->
+  <div class="results-card" id="resultsCard">
+    <div class="big-score" id="finalScore">0/0</div>
+    <div class="result-label" id="resultLabel">{{ texts.your_score }}</div>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem;">
+      <a href="/practice/{{ subject }}?lang={{ lang }}" class="btn btn-primary">{{ texts.try_again }}</a>
+      <a href="/subject/{{ subject }}?lang={{ lang }}" class="btn btn-outline">{{ texts.focus_guide }}</a>
+      <a href="/?lang={{ lang }}" class="btn btn-outline">{{ texts.back_home }}</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const TOTAL = {{ total }};
+let score = 0;
+let answered = 0;
+let selectedLetter = null;
+
+function filterTopic(val) {
+  const base = "/practice/{{ subject }}";
+  const params = new URLSearchParams();
+  if (val !== "all") params.set("topic", val);
+  params.set("lang", "{{ lang }}");
+  window.location = base + "?" + params.toString();
+}
+
+function selectOption(el, qid, qidx) {
+  if (document.getElementById("submit-" + qidx).disabled === false &&
+      document.getElementById("next-" + qidx).style.display !== "none") return;
+  const opts = document.querySelectorAll("#opts-" + qidx + " .option");
+  opts.forEach(o => o.classList.remove("selected"));
+  el.classList.add("selected");
+  selectedLetter = el.getAttribute("data-letter");
+  document.getElementById("submit-" + qidx).disabled = false;
+}
+
+async function submitAnswer(qidx, qid) {
+  if (!selectedLetter) return;
+  const submitBtn = document.getElementById("submit-" + qidx);
+  const nextBtn   = document.getElementById("next-" + qidx);
+  submitBtn.disabled = true;
+
+  const resp = await fetch("/api/check", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({question_id: qid, answer: selectedLetter})
+  });
+  const data = await resp.json();
+
+  // Style options
+  const opts = document.querySelectorAll("#opts-" + qidx + " .option");
+  opts.forEach(o => {
+    const letter = o.getAttribute("data-letter");
+    if (letter === data.correct_answer) o.classList.add("correct");
+    else if (letter === selectedLetter && !data.correct) o.classList.add("wrong");
+    o.style.pointerEvents = "none";
+  });
+
+  // Feedback
+  const fb = document.getElementById("fb-" + qidx);
+  const fbText = document.getElementById("fb-text-" + qidx);
+  const fbChapter = document.getElementById("fb-chapter-" + qidx);
+  fb.style.display = "block";
+  if (data.correct) {
+    fb.className = "feedback correct-fb";
+    fbText.textContent = "{{ texts.correct }}";
+    score++;
+  } else {
+    fb.className = "feedback wrong-fb";
+    fbText.textContent = "{{ texts.wrong }} {{ texts.correct_answer_was }}: " + data.correct_answer;
+  }
+  if (data.chapter_ref) fbChapter.textContent = "📚 " + data.chapter_ref;
+
+  answered++;
+  document.getElementById("scoreNum").textContent = score;
+  document.getElementById("scoreOf").textContent  = answered;
+  const pct = Math.round((qidx + 1) / TOTAL * 100);
+  document.getElementById("progressBar").style.width = pct + "%";
+  document.getElementById("qNum").textContent = Math.min(qidx + 2, TOTAL);
+
+  nextBtn.style.display = "inline-block";
+  selectedLetter = null;
+}
+
+function nextQuestion(qidx, total) {
+  const current = document.getElementById("qcard-" + qidx);
+  current.classList.remove("active");
+
+  const nextIdx = qidx + 1;
+  if (nextIdx >= total) {
+    document.getElementById("resultsCard").style.display = "block";
+    document.getElementById("finalScore").textContent = score + "/" + answered;
+    return;
+  }
+  const next = document.getElementById("qcard-" + nextIdx);
+  next.classList.add("active");
+  next.scrollIntoView({behavior: "smooth", block: "start"});
+}
+</script>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}{{ texts.site_name }}{% endblock %}
+
+{% block content %}
+<div class="hero">
+  <h1>{{ texts.site_name }}</h1>
+  <p>{{ texts.tagline }}</p>
+  <span class="stat-pill">📊 {{ total_questions }} {{ texts.questions_count }} · {{ texts.exam_year }}: {{ target_year }} E.C.</span>
+</div>
+
+<div class="container">
+  <h2 style="margin-bottom:1rem;color:#333;">{{ texts.choose_subject }}</h2>
+
+  <div class="subject-grid">
+    {% for s in subjects %}
+    <div class="subject-card">
+      <div class="icon">{{ s.icon }}</div>
+      <h2>{{ s.label }}</h2>
+      <div class="am">
+        {% if lang == 'en' %}
+          {% if s.subject == 'biology' %}ባዮሎጂ
+          {% elif s.subject == 'chemistry' %}ኬሚስትሪ
+          {% elif s.subject == 'physics' %}ፊዚክስ
+          {% elif s.subject == 'mathematics' %}ሒሳብ
+          {% elif s.subject == 'english' %}እንግሊዝኛ
+          {% elif s.subject == 'civics' %}የዜጎች ትምህርት
+          {% endif %}
+        {% else %}
+          {% if s.subject == 'biology' %}Biology
+          {% elif s.subject == 'chemistry' %}Chemistry
+          {% elif s.subject == 'physics' %}Physics
+          {% elif s.subject == 'mathematics' %}Mathematics
+          {% elif s.subject == 'english' %}English
+          {% elif s.subject == 'civics' %}Civics
+          {% endif %}
+        {% endif %}
+      </div>
+      <div class="stats">
+        <strong>{{ s.top_topic }}</strong> — #1 predicted topic<br>
+        {{ s.high_count }}/{{ s.n_topics }} topics are HIGH priority
+      </div>
+      <div class="coverage">
+        ✅ HIGH topics → ~{{ s.coverage_pct }}% {{ texts.percentage_covered }}
+      </div>
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+        <a href="/subject/{{ s.subject }}?lang={{ lang }}" class="btn btn-primary btn-sm">{{ texts.focus_guide }}</a>
+        <a href="/practice/{{ s.subject }}?lang={{ lang }}" class="btn btn-yellow btn-sm">{{ texts.practice }}</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="notice" style="margin-top:1rem;">
+    <strong>How it works:</strong>
+    The model analyzed 6 years of past exams (2005–2010 E.C.) to find which topics appear most.
+    Focus on <span class="badge badge-HIGH">HIGH</span> topics first — they cover most of the exam.
+    <span class="badge badge-SKIP">SKIP</span> topics have never appeared in 6 years.
+  </div>
+</div>
+{% endblock %}
