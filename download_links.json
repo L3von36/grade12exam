@@ -1,0 +1,276 @@
+{
+  "Grade 11": {
+    "biology": [
+      {
+        "book_name": "Ethiopian Grade 11 Biology Student Textbook (New Curriculum)",
+        "type": "Student Textbook",
+        "curriculum": "New",
+        "download_url": "https://kehulum.com/bfile_asset/books_98/collection/grade-11-biology-new-curriculum--student-textbook-kehulumcom1759924577039e.pdf"
+      },
+      {
+        "book_name": "Ethiopian Grade 11 Biology Student Textbook (Old Curriculum)",
+        "type": "Student Textbook",
+        "curriculum": "Old",
+        "download_url": "https://kehulum.com/bfile_asset/books_108/collection/grade-11-biology-old-curriculum--student-textbook-kehulumcom1755138104bc1e.pdf"
+      },
+      {
+        "book_name": "Ethiopian Grade 11 Biology Teacher\u2019s Guide (Old Curriculum)",
+        "type": "Teacher's Guide",
+        "curriculum": "Old",
+        "download_url": null
+      }
+    ],
+    "chemistry": [
+      {
+        "book_name": "Ethiopian Grade 11 Chemistry Student Textbook (New Curriculum)",
+        "type": "Student Textbook",
+        "curriculum": "New",
+        "download_url": "https://kehulum.com/bfile_asset/books_98/collection/grade-11-chemistry-new-curriculum--student-textbook-kehulumcom17599238964126.pdf"
+      },
+      {
+        "book_name": "Ethiopian Grade 11 Chemistry Student Textbook (Old Curriculum)",
+        "type": "Student Textbook",
+        "curriculum": "Old",
+        "download_url": "https://kehulum.com/bfile_asset/books_108/collection/grade-11-chemistry-old-curriculum--student-textbook-kehulumcom175513758161b6.pdf"
+      },
+      {
+        "book_name": "Ethiopian Grade 11 Chemistry Teacher\u2019s Guide (New Curriculum)",
+        "type": "Teacher's Guide",
+        "curriculum": "New",
+        "download_url": null
+      },
+      {
+        "book_name": "Ethiopian Grade 11 Chemistry Teacher\u2019s Guide (Old Curriculum)",
+        "type": "Teacher's Guide",
+        "curriculum": "Old",
+        "download_url": null
+      }
+    ],
+    "english": [
+      {
+        "book_name": "Ethiopian Grade 11 English For Ethiopia Student Textbook (New Curriculum)",
+        "type": "Student Textbook",
+        "curriculum": "New",
+        "download_url": "https://kehulum.com/bfile_asset/books_98/collection/grade-11-english-for-ethiopia-new-curriculum--student-textbook-kehulumcom175992307047b8.pdf"
+      },
+      {
+        "book_name": "Ethiopian Grade 11 English For Ethiopia Student Textbook (Old Curriculum)",
+        "type": "Student Textbook",
+        "curriculum": "Old",
+        "download_url": "https://kehulum.com/bfile_asset/books_108/collection/grade-11-english-for-ethiopia-old-curriculum--student-textbook-kehulumcom1755141804458e.pdf"
+      },
+      {
+        "book_name": "Ethiopian Grade 11 English For Ethiopia Teacher\u2019s Guide (New Curriculum)",
+        "type": "Teacher's Guide",
+        "curriculum": "New",
+        "download_url": null
+      },
+      {
+        "book_name": "Ethiopian Grade 11 English For Ethiopia Teacher\u2019s Guide (Old Curriculum)",
+        "type": "Teacher's Guide",
+        "curriculum": "Old",
+        "download_url": null
+      }
+    ],
+    "maths": [
+      {
+        "book_name": "Ethiopian Grade 11 Mathematics Student Textbook (New Curriculum)",
+        "type": "Student Textbook",
+        "curriculum": "New",
+        "download_url": "https://kehulum.com/bfile_asset/books_98/collection/grade-11-mathematics-new-curriculum--student-textbook-kehulumcom1759919088fbdb.pdf"
+      },
+      {
+        "book_name": "Ethiopian Grade 11 Mathematics Student Textbook (Old Curriculum)",
+        "type": "Student Textbook",
+        "curriculum": "Old",
+        "download_url": "https://kehulum.com/bfile_asset/books_108/collection/grade-11-mathematics-old-curriculum--student-textbook-kehulumcom1755140120db88.pdf"
+      },
+      {
+        "book_name": "Ethiopian Grade 11 Mathematics Teacher\u2019s Guide (New Curriculum)",
+        "type": "Teacher's Guide",
+        "curriculum": "New",
+        "download_url": null
+      },
+      {
+        "book_name": "Ethiopian Grade 11 Mathematics Teacher\u2019s Guide (Old Curriculum)",
+        "type": "Teacher's Guide",
+        "curriculum": "Old",
+        "download_url": null
+      }
+    ],
+    "physics": [
+      {
+        "book_name": "Ethiopian Grade 11 Physics Student Textbook (New Curriculum)",
+        "type": "Student Textbook",
+        "curriculum": "New",
+        "download_url": "https://kehulum.com/books_asset/books_98/collection/grade-11-physics-new-curriculum--student-textbook-kehulumcom17551049158ab7.pdf"
+      },
+      {
+        "book_name": "Ethiopian Grade 11 Physics Student Textbook (Old Curriculum)",
+        "type": "Student Textbook",
+        "curriculum": "Old",
+        "download_url": "https://kehulum.com/bfile_asset/books_108/collection/grade-11-physics-old-curriculum--student-textbook-kehulumcom1755143125fdc9.pdf"
+      },
+      {
+        "book_name": "Ethiopian Grade 11 Physics Teacher\u2019s Guide (New Curriculum)",
+        "type": "Teacher's Guide",
+        "curriculum": "New",
+        "download_url": null
+      },
+      {
+        "book_name": "Ethiopian Grade 11 Physics Teacher\u2019s Guide (Old Curriculum)",
+        "type": "Teacher's Guide",
+        "curriculum": "Old",
+        "download_url": null
+      }
+    ],
+    "civics": [
+      {
+        "book_name": "Ethiopian Grade 11 Civics And Ethical Education Teacher\u2019s Guide (Old Curriculum)",
+        "type": "Teacher's Guide",
+        "curriculum": "Old",
+        "download_url": null
+      }
+    ]
+  },
+  "Grade 12": {
+    "biology": [
+      {
+        "book_name": "Ethiopian Grade 12 Biology Student Textbook (New Curriculum)",
+        "type": "Student Textbook",
+        "curriculum": "New",
+        "download_url": "https://kehulum.com/bfile_asset/books_99/collection/grade-12-biology-new-curriculum--student-textbook-kehulumcom17599148324a02.pdf"
+      },
+      {
+        "book_name": "Ethiopian Grade 12 Biology Student Textbook (Old Curriculum)",
+        "type": "Student Textbook",
+        "curriculum": "Old",
+        "download_url": "https://kehulum.com/bfile_asset/books_109/collection/grade-12-biology-old-curriculum--student-textbook-kehulumcom17551535477795.pdf"
+      },
+      {
+        "book_name": "Ethiopian Grade 12 Biology Teacher\u2019s Guide (New Curriculum)",
+        "type": "Teacher's Guide",
+        "curriculum": "New",
+        "download_url": null
+      },
+      {
+        "book_name": "Ethiopian Grade 12 Biology Teacher\u2019s Guide (Old Curriculum)",
+        "type": "Teacher's Guide",
+        "curriculum": "Old",
+        "download_url": null
+      }
+    ],
+    "chemistry": [
+      {
+        "book_name": "Ethiopian Grade 12 Chemistry Student Textbook (New Curriculum)",
+        "type": "Student Textbook",
+        "curriculum": "New",
+        "download_url": "https://kehulum.com/bfile_asset/books_99/collection/grade-12-chemistry-new-curriculum--student-textbook-kehulumcom1759915918b6bd.pdf"
+      },
+      {
+        "book_name": "Ethiopian Grade 12 Chemistry Student Textbook (Old Curriculum)",
+        "type": "Student Textbook",
+        "curriculum": "Old",
+        "download_url": "https://kehulum.com/bfile_asset/books_109/collection/grade-12-chemistry-old-curriculum--student-textbook-kehulumcom17551529478492.pdf"
+      },
+      {
+        "book_name": "Ethiopian Grade 12 Chemistry Teacher\u2019s Guide (New Curriculum)",
+        "type": "Teacher's Guide",
+        "curriculum": "New",
+        "download_url": null
+      },
+      {
+        "book_name": "Ethiopian Grade 12 Chemistry Teacher\u2019s Guide (Old Curriculum)",
+        "type": "Teacher's Guide",
+        "curriculum": "Old",
+        "download_url": null
+      }
+    ],
+    "english": [
+      {
+        "book_name": "Ethiopian Grade 12 English For Ethiopia Student Textbook (New Curriculum)",
+        "type": "Student Textbook",
+        "curriculum": "New",
+        "download_url": "https://kehulum.com/bfile_asset/books_99/collection/grade-12-english-for-ethiopia-new-curriculum--student-textbook-kehulumcom1759915593b3b5.pdf"
+      },
+      {
+        "book_name": "Ethiopian Grade 12 English For Ethiopia Student Textbook (Old Curriculum)",
+        "type": "Student Textbook",
+        "curriculum": "Old",
+        "download_url": "https://kehulum.com/bfile_asset/books_109/collection/grade-12-english-for-ethiopia-old-curriculum--student-textbook-kehulumcom1755181029f89f.pdf"
+      },
+      {
+        "book_name": "Ethiopian Grade 12 English For Ethiopia Teacher\u2019s Guide (New Curriculum)",
+        "type": "Teacher's Guide",
+        "curriculum": "New",
+        "download_url": null
+      },
+      {
+        "book_name": "Ethiopian Grade 12 English For Ethiopia Teacher\u2019s Guide (Old Curriculum)",
+        "type": "Teacher's Guide",
+        "curriculum": "Old",
+        "download_url": null
+      }
+    ],
+    "maths": [
+      {
+        "book_name": "Ethiopian Grade 12 Mathematics Student Textbook (New Curriculum)",
+        "type": "Student Textbook",
+        "curriculum": "New",
+        "download_url": "https://kehulum.com/bfile_asset/books_99/collection/grade-12-mathematics-new-curriculum--student-textbook-kehulumcom17599122086bb1.pdf"
+      },
+      {
+        "book_name": "Ethiopian Grade 12 Mathematics Student Textbook (Old Curriculum)",
+        "type": "Student Textbook",
+        "curriculum": "Old",
+        "download_url": "https://kehulum.com/bfile_asset/books_109/collection/grade-12-mathematics-old-curriculum--student-textbook-kehulumcom175516396074e8.pdf"
+      },
+      {
+        "book_name": "Ethiopian Grade 12 Mathematics Teacher\u2019s Guide (New Curriculum)",
+        "type": "Teacher's Guide",
+        "curriculum": "New",
+        "download_url": null
+      },
+      {
+        "book_name": "Ethiopian Grade 12 Mathematics Teacher\u2019s Guide (Old Curriculum)",
+        "type": "Teacher's Guide",
+        "curriculum": "Old",
+        "download_url": null
+      }
+    ],
+    "physics": [
+      {
+        "book_name": "Ethiopian Grade 12 Physics Student Textbook (New Curriculum)",
+        "type": "Student Textbook",
+        "curriculum": "New",
+        "download_url": "https://kehulum.com/bfile_asset/books_99/collection/grade-12-physics-new-curriculum--student-textbook-kehulumcom1759910068aff6.pdf"
+      },
+      {
+        "book_name": "Ethiopian Grade 12 Physics Student Textbook (Old Curriculum)",
+        "type": "Student Textbook",
+        "curriculum": "Old",
+        "download_url": "https://kehulum.com/bfile_asset/books_109/collection/grade-12-physics-old-curriculum--student-textbook-kehulumcom17551517967603.pdf"
+      },
+      {
+        "book_name": "Ethiopian Grade 12 Physics Teacher\u2019s Guide (New Curriculum)",
+        "type": "Teacher's Guide",
+        "curriculum": "New",
+        "download_url": null
+      },
+      {
+        "book_name": "Ethiopian Grade 12 Physics Teacher\u2019s Guide (Old Curriculum)",
+        "type": "Teacher's Guide",
+        "curriculum": "Old",
+        "download_url": null
+      }
+    ],
+    "civics": [
+      {
+        "book_name": "Ethiopian Grade 12 Civics And Ethical Education Teacher\u2019s Guide (Old Curriculum)",
+        "type": "Teacher's Guide",
+        "curriculum": "Old",
+        "download_url": null
+      }
+    ]
+  }
+}
