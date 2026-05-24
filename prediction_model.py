@@ -67,20 +67,32 @@ def _slope(xs: Sequence[float], ys: Sequence[float]) -> float:
     return num / den if den else 0.0
 
 
+# Minimum data before the even/odd alternation signal is trusted. With only
+# 6 years the odd/even split is 3-vs-3, where Cohen's d is dominated by noise;
+# requiring >=8 years (>=4 per parity) keeps this signal from contributing
+# spurious phase scores. Below the threshold _detect_cyclical returns 0.
+_MIN_CYCLE_YEARS = 8
+_MIN_PER_PARITY = 4
+
+# Default top-k used by backtest helpers; clamped per subject by _effective_k.
+_DEFAULT_TOP_K = 5
+
+
 def _detect_cyclical(years: Sequence[float], scores: Sequence[float]) -> float:
     """
     Returns a phase score in [-1, 1]:
       +1  → odd-year topic, target year is odd
       -1  → odd-year topic, target year is even (and vice versa)
-       0  → no significant alternation
+       0  → no significant alternation (or too little data to tell)
     Computed by comparing odd-year mean vs even-year mean against overall
-    variance. Requires at least 4 data points.
+    variance. Gated on _MIN_CYCLE_YEARS / _MIN_PER_PARITY so it stays silent
+    until there is enough history for the effect size to mean anything.
     """
-    if len(years) < 4:
+    if len(years) < _MIN_CYCLE_YEARS:
         return 0.0
     odd_vals = [s for y, s in zip(years, scores) if int(y) % 2 == 1]
     even_vals = [s for y, s in zip(years, scores) if int(y) % 2 == 0]
-    if len(odd_vals) < 2 or len(even_vals) < 2:
+    if len(odd_vals) < _MIN_PER_PARITY or len(even_vals) < _MIN_PER_PARITY:
         return 0.0
     diff = _mean(odd_vals) - _mean(even_vals)
     pooled = _stdev(scores)
@@ -278,44 +290,133 @@ class BacktestResult:
         }
 
 
-def backtest_subject(trend_df, subject: str,
-                     top_k: int = 5,
-                     weights: Optional[EnsembleWeights] = None
-                     ) -> List[BacktestResult]:
-    """Leave-one-year-out: hold each year >= second-earliest, predict it."""
+# --- Ranking functions: model + naive baselines ----------------------------
+# Each takes (trend_df, subject, target_year) and returns topics ranked
+# most->least likely. Baselines exist so the ensemble's hit-rate / rank
+# correlation can be judged against trivial strategies: if it doesn't beat
+# "repeat last year" or "use historical frequency", the extra signals aren't
+# earning their weight.
+
+def _model_ranking(trend_df, subject, target_year,
+                   weights: Optional[EnsembleWeights] = None,
+                   recent_window: int = 3) -> List[str]:
+    preds = predict_subject(trend_df, subject, target_year, weights,
+                            recent_window)
+    return [p.topic for p in preds]
+
+
+def frequency_ranking(trend_df, subject, target_year) -> List[str]:
+    """Baseline: rank by mean historical score over all prior years."""
+    df = _trend_subset(trend_df, subject=subject, max_year=target_year)
+    if df.empty:
+        return []
+    agg = df.groupby('topic')['score'].mean().sort_values(ascending=False)
+    return list(agg.index)
+
+
+def recency_ranking(trend_df, subject, target_year) -> List[str]:
+    """Baseline: rank by the single most recent prior year's scores."""
+    df = _trend_subset(trend_df, subject=subject, max_year=target_year)
+    if df.empty:
+        return []
+    last_year = df['year_num'].max()
+    last = df[df['year_num'] == last_year].sort_values('score', ascending=False)
+    return list(last['topic'])
+
+
+def _evaluate_fold(predicted: List[str], actual: List[str], k: int
+                   ) -> Tuple[List[str], List[str], float, float]:
+    predicted_top = predicted[:k]
+    actual_top = actual[:k]
+    hit = (len(set(predicted_top) & set(actual_top)) / len(actual_top)
+           if actual_top else 0.0)
+    tau = _kendall_tau(predicted_top, actual_top)
+    return predicted_top, actual_top, hit, tau
+
+
+def _effective_k(top_k: int, n_topics: int) -> int:
+    """Clamp k below the topic count.
+
+    With k >= n_topics the predicted and actual top-k are both "all topics",
+    so hit_rate is a meaningless constant 1.0. Capping at n_topics-1 keeps the
+    metric discriminative. The real fix is more topics (chapter-level), but
+    this prevents a silently degenerate score in the meantime.
+    """
+    return max(1, min(top_k, n_topics - 1))
+
+
+def _backtest_ranking(trend_df, subject: str, rank_fn,
+                      top_k: int = 5) -> List[BacktestResult]:
+    """Leave-one-year-out backtest for an arbitrary ranking function."""
     df = trend_df[trend_df['subject'] == subject].dropna(subset=['year_num'])
     years = sorted(df['year_num'].astype(float).unique())
     if len(years) < 3:
         return []
+    k = _effective_k(top_k, int(df['topic'].nunique()))
 
     results: List[BacktestResult] = []
     for held in years[2:]:  # need >=2 years of training data
-        preds = predict_subject(trend_df, subject, target_year=held,
-                                weights=weights)
-        if not preds:
+        predicted = rank_fn(trend_df, subject, held)
+        if not predicted:
             continue
         actual = (df[df['year_num'] == held]
                   .sort_values('score', ascending=False)['topic']
                   .tolist())
         if not actual:
             continue
-
-        predicted_top = [p.topic for p in preds[:top_k]]
-        actual_top = actual[:top_k]
-        hit = (len(set(predicted_top) & set(actual_top)) / len(actual_top)
-               if actual_top else 0.0)
-        tau = _kendall_tau(predicted_top, actual_top)
-
+        predicted_top, actual_top, hit, tau = _evaluate_fold(
+            predicted, actual, k)
         results.append(BacktestResult(
             subject=subject,
             held_out_year=int(held),
-            top_k=top_k,
+            top_k=k,
             predicted=predicted_top,
             actual=actual_top,
             hit_rate=hit,
             rank_correlation=tau,
         ))
     return results
+
+
+def backtest_subject(trend_df, subject: str,
+                     top_k: int = 5,
+                     weights: Optional[EnsembleWeights] = None
+                     ) -> List[BacktestResult]:
+    """Leave-one-year-out backtest of the ensemble model for one subject."""
+    return _backtest_ranking(
+        trend_df, subject,
+        lambda td, s, y: _model_ranking(td, s, y, weights),
+        top_k=top_k,
+    )
+
+
+def compare_baselines(trend_df, top_k: int = 5,
+                      weights: Optional[EnsembleWeights] = None
+                      ) -> Dict[str, dict]:
+    """Run the ensemble and naive baselines through identical LOYO folds.
+
+    Returns {method: {n_folds, mean_hit_rate, mean_rank_correlation}} for
+    'ensemble', 'frequency', and 'recency'. The ensemble is only worth its
+    complexity if it beats the baselines here.
+    """
+    rankers = {
+        'ensemble': lambda td, s, y: _model_ranking(td, s, y, weights),
+        'frequency': frequency_ranking,
+        'recency': recency_ranking,
+    }
+    subjects = sorted(trend_df['subject'].dropna().unique())
+    summary: Dict[str, dict] = {}
+    for name, fn in rankers.items():
+        res: List[BacktestResult] = []
+        for subject in subjects:
+            res.extend(_backtest_ranking(trend_df, subject, fn, top_k=top_k))
+        summary[name] = {
+            'n_folds': len(res),
+            'mean_hit_rate': round(_mean([r.hit_rate for r in res]), 3),
+            'mean_rank_correlation': round(
+                _mean([r.rank_correlation for r in res]), 3),
+        }
+    return summary
 
 
 def backtest_all(trend_df, top_k: int = 5,
@@ -341,3 +442,102 @@ def summarize_backtest(results: List[BacktestResult]) -> Dict[str, dict]:
                 _mean([r.rank_correlation for r in rs]), 3),
         }
     return summary
+
+
+# --- Data prep ---------------------------------------------------------------
+
+def normalize_trend_scores(trend_df):
+    """Convert raw per-(subject, year) topic scores into shares summing to 1.
+
+    The notebook builds `score` by summing score_text over every question in an
+    exam, so a year with more (or longer) questions inflates every topic's
+    score and years aren't comparable. Dividing by the per-(subject, year)
+    total turns each exam into a topic *distribution*, which is what the
+    recent/trend signals should be reading. Call this on trend_df before
+    predict_all / backtest_all.
+    """
+    df = trend_df.copy()
+    totals = df.groupby(['subject', 'year_num'])['score'].transform('sum')
+    df['score'] = df['score'] / totals.where(totals > 0, 1.0)
+    return df
+
+
+# --- Weight tuning -----------------------------------------------------------
+
+def tune_weights(trend_df, top_k: int = 5, step: float = 0.1,
+                 metric: str = 'rank_correlation'
+                 ) -> Tuple[EnsembleWeights, float]:
+    """Coarse grid search over ensemble weights, scored by backtest.
+
+    Returns (best_weights, best_score). `metric` is 'rank_correlation' or
+    'hit_rate'. Weights are searched on a `step` grid and constrained to sum
+    to 1.0.
+
+    CAUTION: with only ~6 years per subject this WILL overfit if taken too
+    seriously. Keep `step` coarse (0.1+), pool across subjects (this does),
+    and treat the result as a sanity check that the chosen weights beat the
+    uniform 0.25 split — not as finely tuned truth.
+    """
+    n = int(round(1.0 / step))
+    grid = [round(i * step, 4) for i in range(n + 1)]
+    best: Optional[Tuple[EnsembleWeights, float]] = None
+    for r in grid:
+        for t in grid:
+            for c in grid:
+                s = round(1.0 - r - t - c, 4)
+                if s < -1e-9 or s > 1.0 + 1e-9:
+                    continue
+                s = max(0.0, s)
+                w = EnsembleWeights(recent=r, trend=t, cyclical=c, stability=s)
+                res = backtest_all(trend_df, top_k=top_k, weights=w)
+                if not res:
+                    continue
+                score = _mean([getattr(x, metric) for x in res])
+                if best is None or score > best[1]:
+                    best = (w, round(score, 4))
+    if best is None:
+        return EnsembleWeights(), 0.0
+    return best
+
+
+# --- Confidence calibration --------------------------------------------------
+
+def confidence_calibration(trend_df,
+                           weights: Optional[EnsembleWeights] = None,
+                           recent_window: int = 3,
+                           bins: Sequence[float] = (0.0, 0.6, 0.8, 1.01)
+                           ) -> Dict[str, dict]:
+    """Check whether stated confidence tracks real per-topic hit rate.
+
+    Across all LOYO folds, for each predicted top-k topic record
+    (confidence, hit) where hit==1 iff that topic actually appeared
+    (score > 0) in the held-out year. Bucket by the confidence bins and
+    report the empirical hit rate per bucket. A well-calibrated model shows
+    higher empirical hit rate in higher-confidence buckets; if not, the
+    confidence shown to students is misleading.
+    """
+    records: List[Tuple[float, int]] = []
+    for subject in sorted(trend_df['subject'].dropna().unique()):
+        df = trend_df[trend_df['subject'] == subject].dropna(subset=['year_num'])
+        years = sorted(df['year_num'].astype(float).unique())
+        if len(years) < 3:
+            continue
+        k = _effective_k(_DEFAULT_TOP_K, int(df['topic'].nunique()))
+        for held in years[2:]:
+            preds = predict_subject(trend_df, subject, held, weights,
+                                    recent_window)
+            if not preds:
+                continue
+            actual = set(df[(df['year_num'] == held) & (df['score'] > 0)]['topic'])
+            for p in preds[:k]:
+                records.append((p.confidence, 1 if p.topic in actual else 0))
+
+    out: Dict[str, dict] = {}
+    for i in range(len(bins) - 1):
+        lo, hi = bins[i], bins[i + 1]
+        grp = [hit for conf, hit in records if lo <= conf < hi]
+        out[f'{lo:.2f}-{hi:.2f}'] = {
+            'n': len(grp),
+            'empirical_hit_rate': round(_mean(grp), 3) if grp else None,
+        }
+    return out
