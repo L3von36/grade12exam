@@ -36,9 +36,14 @@ TOPIC_RULES: Dict[str, Dict[str, List[str]]] = {
         'human_biology': ['respiratory', 'circulatory', 'digestive', 'hormone'],
     },
     'english': {
-        'grammar': ['tense', 'verb', 'noun', 'adjective', 'preposition'],
-        'reading': ['passage', 'main idea', 'inference', 'author'],
-        'vocabulary': ['synonym', 'antonym', 'meaning', 'word'],
+        'grammar': ['tense', 'verb', 'noun', 'adjective', 'preposition',
+                    'sentence', 'clause', 'subject', 'object', 'passive',
+                    'active', 'pronoun', 'adverb', 'conjunction', 'article',
+                    'singular', 'plural', 'phrase', 'modal'],
+        'reading': ['passage', 'main idea', 'inference', 'author',
+                    'paragraph', 'comprehension', 'context', 'implies'],
+        'vocabulary': ['synonym', 'antonym', 'meaning', 'word',
+                       'similar', 'opposite', 'definition', 'closest'],
     },
     'civics': {
         'constitution_governance': ['constitution', 'federal', 'government', 'democracy'],

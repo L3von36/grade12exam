@@ -113,6 +113,7 @@ def generate_study_guide(
     trend_df,
     backtest_result: Optional[Dict] = None,
     generated_at: str = "2026-05-01",
+    exams_df=None,
 ) -> StudyGuide:
     """
     Generate a StudyGuide from predictions dataframe.
@@ -120,7 +121,10 @@ def generate_study_guide(
     predictions_df should have columns: subject, topic, likely_score,
       confidence, recent, trend, cyclical, stability, history (list of
       (year, score) tuples).
-    trend_df: the full trend dataframe for frequency lookups.
+    trend_df: the full trend dataframe for frequency lookups (subject,
+      year_num, topic, score).
+    exams_df: optional dataframe with a 'filename' column for listing the
+      specific exams that contained each topic.
     """
     pred_sub = predictions_df[predictions_df['subject'] == subject]
     if pred_sub.empty:
@@ -130,17 +134,23 @@ def generate_study_guide(
     for rank, (_, row) in enumerate(pred_sub.iterrows(), start=1):
         topic = row['topic']
 
-        # Frequency: count exams with this topic
-        topic_counts = trend_df[
+        # Frequency: count distinct exam years where this topic had a positive
+        # score (trend_df rows may include zero-score entries).
+        topic_rows = trend_df[
             (trend_df['subject'] == subject) & (trend_df['topic'] == topic)
         ]
-        n_exams = len(topic_counts)
+        positive_years = topic_rows[topic_rows['score'] > 0]['year_num'].dropna().unique()
+        n_exams = int(len(positive_years))
         frequency_str = f"{n_exams}/6 exams"
 
-        # Exam references
-        exams = (trend_df[
-            (trend_df['subject'] == subject) & (trend_df['topic'] == topic)
-        ]['filename'].tolist() if 'filename' in trend_df.columns else [])
+        # Exam references: pull filenames from exams_df where this subject
+        # appeared in a year with positive topic score.
+        exams: List[str] = []
+        if exams_df is not None and 'filename' in exams_df.columns and len(positive_years) > 0:
+            mask = (exams_df['subject'] == subject) & (exams_df['type'] == 'questions')
+            years_str = {str(int(y)) for y in positive_years}
+            mask &= exams_df['year'].astype(str).isin(years_str)
+            exams = exams_df.loc[mask, 'filename'].tolist()
 
         # Trend & cyclical description
         trend_desc = _trend_str(float(row.get('trend', 0)))
