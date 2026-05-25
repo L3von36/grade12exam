@@ -135,3 +135,63 @@ def evaluate_ocr(extracted_by_exam: Dict[str, str],
             'n_reference_questions': len(gt.questions),
         }
     return results
+
+
+def evaluate_topics(taxonomies: Dict,
+                    ground_truth: Optional[List[ExamGroundTruth]] = None,
+                    min_score: float = 0.5) -> Dict[str, dict]:
+    """
+    Evaluate topic classification against ground truth.
+
+    This is the classification counterpart to evaluate_ocr: it runs the topic
+    classifier on each ground-truth exam's questions and scores the predicted
+    topic set against the exam's `expected_topics` via topic_prf.
+
+    Args:
+        taxonomies: {subject: TopicTaxonomy} — e.g. the per-subject taxonomies
+            the notebook builds from the question corpus (topic_classifier.
+            build_taxonomy). An exam whose subject is missing here is skipped.
+        ground_truth: list of ExamGroundTruth; loaded from disk if None.
+        min_score: classifier threshold passed through to classify_questions.
+
+    Returns:
+        {exam_id: {precision, recall, f1, predicted_topics, expected_topics,
+        n_questions}}, plus an 'OVERALL' entry with macro-averaged P/R/F1.
+        Empty if there is no ground truth.
+    """
+    # Local import keeps validation.py importable without the classifier (and
+    # avoids paying its import cost for OCR-only evaluation).
+    from topic_classifier import classify_questions
+
+    if ground_truth is None:
+        ground_truth = load_ground_truth()
+
+    results: Dict[str, dict] = {}
+    accumulated: List[Dict[str, float]] = []
+    for gt in ground_truth:
+        tax = taxonomies.get(gt.subject)
+        if tax is None:
+            continue
+        q_texts = [q.get('text', '') for q in gt.questions]
+        labels = classify_questions(q_texts, tax, min_score=min_score)
+        predicted = sorted({lab for lab in labels if lab})
+        prf = topic_prf(predicted, gt.expected_topics)
+        results[gt.exam_id] = {
+            'precision': round(prf['precision'], 3),
+            'recall': round(prf['recall'], 3),
+            'f1': round(prf['f1'], 3),
+            'predicted_topics': predicted,
+            'expected_topics': sorted(gt.expected_topics),
+            'n_questions': len(gt.questions),
+        }
+        accumulated.append(prf)
+
+    if accumulated:
+        n = len(accumulated)
+        results['OVERALL'] = {
+            'precision': round(sum(p['precision'] for p in accumulated) / n, 3),
+            'recall': round(sum(p['recall'] for p in accumulated) / n, 3),
+            'f1': round(sum(p['f1'] for p in accumulated) / n, 3),
+            'n_exams': n,
+        }
+    return results

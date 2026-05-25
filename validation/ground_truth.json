@@ -1,0 +1,28 @@
+{
+  "_README": "TEMPLATE — replace these example exams with real labeled data. 'subject' must match a key in topics.py TOPIC_RULES; 'expected_topics' must be topic keys from that subject. 'questions[].text' is the transcribed (ground-truth) question text used to score OCR and topic classification. Delete this _README key before use or leave it; loaders ignore unknown top-level keys.",
+  "exams": [
+    {
+      "exam_id": "mathematics-2008-questions",
+      "subject": "mathematics",
+      "year": "2008",
+      "type": "questions",
+      "expected_topics": ["algebra", "calculus"],
+      "questions": [
+        {"page": 1, "id": "q1", "text": "Solve the equation x^2 - 5x + 6 = 0 for x."},
+        {"page": 1, "id": "q2", "text": "Find the derivative of f(x) = 3x^3 - 2x + 1."},
+        {"page": 2, "id": "q3", "text": "Factor the polynomial x^2 - 9 completely."}
+      ]
+    },
+    {
+      "exam_id": "physics-2008-questions",
+      "subject": "physics",
+      "year": "2008",
+      "type": "questions",
+      "expected_topics": ["mechanics"],
+      "questions": [
+        {"page": 1, "id": "q1", "text": "A car accelerates from rest at 2 m/s^2. Find its velocity after 5 seconds."},
+        {"page": 1, "id": "q2", "text": "Calculate the momentum of a 4 kg object moving at 3 m/s."}
+      ]
+    }
+  ]
+}
